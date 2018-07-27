@@ -1,11 +1,11 @@
 version: '{build}'
 
 cache:
-- x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z
-- i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z
-- sqlite-dll-win32-x86-3240000.zip
-- sqlite-dll-win64-x64-3240000.zip
-- c:\tools\vcpkg\installed\
+- x86_64-4.9.2-release-win32-seh-rt_v4-rev4.7z -> appveyor.yml
+- i686-4.9.2-release-win32-dwarf-rt_v4-rev4.7z -> appveyor.yml
+- sqlite-dll-win32-x86-3240000.zip -> appveyor.yml
+- sqlite-dll-win64-x64-3240000.zip -> appveyor.yml
+- c:\tools\vcpkg\installed\ -> appveyor.yml
 
 # We always want 32 and 64-bit compilation
 matrix:
@@ -40,7 +40,7 @@ install:
   - 7z x -y "%SQLITE_ARCHIVE%" > nul
   - IF "%PLATFORM%" == "x64" ( copy %CD%\sqlite3.dll %CD%\bin\sqlite3_64.dll ) ELSE ( copy %CD%\sqlite3.dll %CD%\bin\sqlite3_32.dll )
   - vcpkg install "%ROCKSDB_PACKAGE%"
-  - copy %VCPKG_DIR%\bin\rocksdb_shared.dll %CD%\bin\librocksdb.dll && copy %VCPKG_DIR%\bin\zlib1.dll %CD%\bin\zlib1.dll
+  - copy %VCPKG_DIR%\bin\rocksdb-shared.dll %CD%\bin\librocksdb.dll && copy %VCPKG_DIR%\bin\zlib1.dll %CD%\bin\zlib1.dll
   - SET PATH=%CD%\%MINGW_DIR%\bin;%CD%\bin;%CD%\Nim\bin;%PATH%
   - git clone https://github.com/nim-lang/Nim.git
   - cd %CD%\Nim
